@@ -19,12 +19,38 @@ public class IncomeAndExpenseDao {
     }
 
 
-    //
+    /**
+     * @Description:删除该用户所有的消费记录
+     * @Author: Wry is a vegtable chicken
+     * @Date: 2020/9/17 22:45
+     * [incomeAndExpense]
+      * @return: void
+     **/
     public static void delete(IncomeAndExpense incomeAndExpense){
         String sql = "delete from income_expense where email = '"+
                 incomeAndExpense.getEmail()+"'";
         DataBaseController.exectue(sql);
         return;
     }
+
+    public static ResultSet selectWithEmailOrder(String email){
+        String sql = "select * from income_expense where email = '" + email + "' order by  time asc";
+        ResultSet resultSet = DataBaseController.exectue(sql);
+        return resultSet;
+    }
+
+    public static ResultSet selectWithEmailDesc(String email){
+        String sql = "select * from income_expense where email = '" + email + "' order by  time desc";
+        ResultSet resultSet = DataBaseController.exectue(sql);
+        return resultSet;
+    }
+
+    public static void deleteOne(IncomeAndExpense incomeAndExpense){
+        String sql = "delete from income_expense where email = '" + incomeAndExpense.getEmail()+"'"+
+                "and time = '"+incomeAndExpense.getTime()+"' and type = '"+ incomeAndExpense.getType() + "'";
+        DataBaseController.exectue(sql);
+        return;
+    }
+
 
 }
