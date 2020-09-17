@@ -8,7 +8,7 @@ public class Processor {
     public static void main(String[] args)
     {
         UserInformation userInformation = new UserInformation("1111","2222","3333",0);
-        UserInformationDao.insert(userInformation);
+        UserInformationDao.delete(userInformation);
     }
 
 }

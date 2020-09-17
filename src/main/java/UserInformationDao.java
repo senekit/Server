@@ -17,4 +17,10 @@ public class UserInformationDao {
         DataBaseController.exectue(sql);
     }
 
+    public static void delete(UserInformation userInformation){
+        String sql = "delete from user_information where email ='" + userInformation.getEmail() + "'";
+        DataBaseController.exectue(sql);
+    }
+
+
 }
