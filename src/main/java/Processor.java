@@ -1,3 +1,6 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * @program: Server
  * @description: 处理传来的数据
@@ -7,8 +10,23 @@
 public class Processor {
     public static void main(String[] args)
     {
-        UserInformation userInformation = new UserInformation("1111","2222","3333",0);
-        UserInformationDao.delete(userInformation);
+        UserInformation userInformation = new UserInformation("1","2222","3333",0);
+      //  UserInformationDao.delete(userInformation);
+      //  ResultSet rs = UserInformationDao.selectWithEmail(userInformation.getEmail());
+//        ResultSet rs = UserInformationDao.selectWithFamilyId(0);
+//      //  if(rs!=null)System.out.println(rs);
+//        try {
+//            while (rs.next()) {
+//               // System.out.println("成功");
+//                System.out.println(rs.getString(1));
+//                System.out.println(rs.getString(2));
+//                System.out.println(rs.getString(3));
+//                System.out.println(rs.getString(4));
+//            }
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        UserInformationDao.updateFamilyId("1",333);
     }
 
 }

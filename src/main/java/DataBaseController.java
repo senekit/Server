@@ -37,7 +37,7 @@ public class DataBaseController {
                 return pst.executeQuery();
 
             }else{
-                System.out.println("11111");
+              //  System.out.println("11111");
                 pst.execute();
                 pst.close();
                 connection.close();
