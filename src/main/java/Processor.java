@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class Processor {
     public static void main(String[] args)
     {
-        UserInformation userInformation = new UserInformation("1","2222","3333",0);
+       // UserInformation userInformation = new UserInformation("1","2222","3333",0);
       //  UserInformationDao.delete(userInformation);
       //  ResultSet rs = UserInformationDao.selectWithEmail(userInformation.getEmail());
 //        ResultSet rs = UserInformationDao.selectWithFamilyId(0);
@@ -26,7 +26,10 @@ public class Processor {
 //        }catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        UserInformationDao.updateFamilyId("1",333);
+       // UserInformationDao.updateFamilyId("1",333);
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense("www",1,"food","2020-09-28");
+       // IncomeAndExpenseDao.insert(incomeAndExpense);
+       // IncomeAndExpenseDao.delete(incomeAndExpense);
     }
 
 
