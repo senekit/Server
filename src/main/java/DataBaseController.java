@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @program: Server
@@ -10,37 +11,114 @@ import java.sql.ResultSet;
  * @create: 2020-09-16 20:48
  **/
 public class DataBaseController {
-    public static void main(String[] args) throws Exception{
-        //1 注册驱动
-        //2 获取连接
-        //3 获取操作数据库的预处理对象
-        //4 执行SQL 得到结果集
-        //5 遍历结果集
-        //6 释放资源
-        Connection conn = null;
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+    static private String hostIp;
+    static private String port;
+    static private String dbName;
+    static private String dbUser;
+    static private String password;
 
-        //1 注册驱动，加载驱动类
-        //DriverManager.registerDriver(new com.mysql.jdbc.Driver());//没有这个jar包是无法运行的
-        Class.forName("com.mysql.jdbc.Driver");//这里com.mysql.jdbc.Driver()仅是一个字符串，该类就可作为一个独立的类
-
-        //2 建立连接
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/database",
-                "root", "8904652xuexi~!@");             //使用前请更改你的数据库信息
-        //3 获取操作数据库的预处理对象
-        pstm = conn.prepareStatement("select * from user_information");
-
-        //4 执行SQL 得到结果集
-        rs = pstm.executeQuery();
-
-        //5 遍历结果集
-        while (rs.next()) {
-            System.out.println(rs.getString(1) + " "+rs.getString(2) + " "+rs.getString(3) + " "+ rs.getInt(4));
-        }
-        //6 释放资源
-        rs.close();
-        pstm.close();
-        conn.close();
+    public DataBaseController(String hostIp,String port,String daName,String dbUser,String password){
+        this.hostIp = "127.0.0.1";
+        this.port = "3306";
+        this.dbName = "database";
+        this.dbUser = "root";
+        this.password = "1234";
     }
+
+    public static ResultSet exectue(String sql) {
+        Connection connection = getConnection();
+        if(connection==null)return null;
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            String sqlType = sql.substring(0,6);
+            if(sqlType.equals("select")) {
+
+
+                return pst.executeQuery();
+
+            }else{
+                System.out.println("11111");
+                pst.execute();
+                pst.close();
+                connection.close();
+                return null;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return  null;
+    }
+
+    public static Connection getConnection() {
+        try {
+			Class.forName("com.mysql.jdbc.Driver");
+            hostIp = "127.0.0.1";
+            port = "3306";
+            dbName = "database";
+            dbUser = "root";
+            password = "1234";
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("数据库包无法加载");
+			e.printStackTrace();
+		}
+
+        String dbUrl = "jdbc:mysql://localhost:3306/database";
+        try{
+            Connection connection = DriverManager.getConnection(dbUrl,dbUser,password);
+            return connection;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            //return  getConnection();
+        }
+       return null;
+    }
+
 }
+////连接数据库
+//public class JDBCDemo {
+//	public static void main(String[] args) {
+//		// 打开连接
+//		// 1.加载驱动
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//		} catch (ClassNotFoundException e) {
+//			System.out.println("数据库包无法加载");
+//			e.printStackTrace();
+//		}
+//		// 2.设置连接字符串,Mysql的端口默认就是3306
+//		String url = "jdbc:mysql://localhost:3306/javafx_db";
+//		// 3.通过刚加载的数据库驱动以及连接字符串来获取数据库连接对象
+//		// DriverManager的getConnection中的参数:
+//		// 1.连接字符串
+//		// 2.用户名
+//		// 3.密码
+//		Connection con;
+//		String sql = null;
+//		try {
+//			con = DriverManager.getConnection(url, "root", "admin");
+//
+//			// 发送要执行的SQL语句
+//			sql = "select  from login_tb where username=? and password=?";
+//			PreparedStatement pst;
+//
+//			pst = con.prepareStatement(sql);
+//			pst.setString(1, "张三");
+//			pst.setString(2, "456");
+//			ResultSet rs = pst.executeQuery();
+//
+//			if (rs.next()) {
+//				System.out.println("成功");
+//			} else {
+//				System.out.println("失败");
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println(sql);
+//			e.printStackTrace();
+//		}
+//
+//		// 接收结果
+//	}
+//}
+
