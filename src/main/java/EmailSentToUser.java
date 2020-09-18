@@ -45,6 +45,7 @@ public class EmailSentToUser {
         Transport transport = session.getTransport();
 
         //连接服务器
+        //password需要从QQ邮箱获取，这里这个password我已经修改，如果需要使用修改user账号和相对应的password
         transport.connect("smtp.qq.com","1792700051@qq.com","vooszkfvqlkxdjhj");
 
         //创建邮件对象
@@ -54,7 +55,7 @@ public class EmailSentToUser {
         mimeMessage.setFrom(new InternetAddress("1792700051@qq.com"));
 
         //邮件接收人
-        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress("1472114549@qq.com"));
+        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress("1792700051@qq.com"));
 
         //邮件标题
         mimeMessage.setSubject("Hello Ljz");
