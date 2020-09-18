@@ -11,9 +11,9 @@ import java.util.List;
  **/
 public class IncomeAndExpenseDao {
     public static void insert(IncomeAndExpense incomeAndExpense){
-        String sql  = "insert into income_expense(email,money,type,time) values('"+incomeAndExpense.getEmail()
-                +"',"+incomeAndExpense.getMoney()+",'"+incomeAndExpense.getType()+"','"+incomeAndExpense.getTime()+"')";
-        //System.out.println(sql);
+        String sql  = "insert into income_expense(email,money,type,time_change) values('"+incomeAndExpense.getEmail()
+                +"',"+incomeAndExpense.getMoney()+",'"+incomeAndExpense.getType()+"','"+incomeAndExpense.getTime().trim()+"')";
+        System.out.println(sql);
         DataBaseController.exectue(sql);
         return;
     }
@@ -34,20 +34,20 @@ public class IncomeAndExpenseDao {
     }
 
     public static ResultSet selectWithEmailOrder(String email){
-        String sql = "select * from income_expense where email = '" + email + "' order by  time asc";
+        String sql = "select * from income_expense where email = '" + email + "' order by  time_change asc";
         ResultSet resultSet = DataBaseController.exectue(sql);
         return resultSet;
     }
 
     public static ResultSet selectWithEmailDesc(String email){
-        String sql = "select * from income_expense where email = '" + email + "' order by  time desc";
+        String sql = "select * from income_expense where email = '" + email + "' order by  time_change desc";
         ResultSet resultSet = DataBaseController.exectue(sql);
         return resultSet;
     }
 
     public static void deleteOne(IncomeAndExpense incomeAndExpense){
         String sql = "delete from income_expense where email = '" + incomeAndExpense.getEmail()+"'"+
-                "and time = '"+incomeAndExpense.getTime()+"' and type = '"+ incomeAndExpense.getType() + "'";
+                "and time_change = '"+incomeAndExpense.getTime()+"' and type = '"+ incomeAndExpense.getType() + "'";
         DataBaseController.exectue(sql);
         return;
     }

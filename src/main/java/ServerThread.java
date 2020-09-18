@@ -28,12 +28,13 @@ class ServerThread extends Thread {
                 byte[] bytes = new byte[1024];
                 inputStream.read(bytes);
                 String string = new String(bytes);
-               // System.out.println(string);
+                System.out.println(string);
                 processing(string);
                 //向客户端发送消息
                 outputStream = socket.getOutputStream();
                 outputStream.write(finalInformation.getBytes());
-                System.out.println(finalInformation);
+                if(finalInformation!=null)finalInformation = null;
+                //System.out.println(finalInformation);
 
             }
         } catch (Exception e) {
@@ -53,6 +54,7 @@ class ServerThread extends Thread {
         String[] informationOfRequest = message.split("/");
         if(informationOfRequest[0].equals("L"))finalInformation = loginInformation(informationOfRequest);
         if(informationOfRequest[0].equals("R"))finalInformation = registerInformation(informationOfRequest);
+        if(informationOfRequest[0].equals("M"))finalInformation = getIncomeAndExpense(informationOfRequest);
     }
 
     /**
@@ -69,7 +71,7 @@ class ServerThread extends Thread {
         try {
             while (rs.next()) {
                 if(email.equals(rs.getString(1))) {
-                    if(password.equals(rs.getString(3)))return "S";
+                    if(password.equals(rs.getString(3)))return "A";
                     else return "F";
                 }
                 //System.out.println(rs.getString(3));
@@ -104,7 +106,20 @@ class ServerThread extends Thread {
         }
         UserInformation newUser = new UserInformation(email,password,name,0);
         UserInformationDao.insert(newUser);
-        return "S";
+        return "B";
     }
+
+    public static String getIncomeAndExpense(String[] information){
+        String email = information[1];
+        String type = information[2];
+        int money = Integer.parseInt(information[3]);
+        String time = information[4];
+      //  String time = null;
+       // time = new String(information[4],"utf-8");
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense(email,money,type,time);
+        IncomeAndExpenseDao.insert(incomeAndExpense);
+        return "C";
+    }
+
 
 }

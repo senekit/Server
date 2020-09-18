@@ -26,12 +26,14 @@ public class Server {
                 try {
                     //建立跟客户端的连接
                     socket = serverSocket.accept();
+                    ServerThread thread = new ServerThread(socket);
+                    thread.start();
+
                 } catch (Exception e) {
                     System.out.println("建立与客户端的连接出现异常");
                     e.printStackTrace();
                 }
-                ServerThread thread = new ServerThread(socket);
-                thread.start();
+
             }
         } catch (Exception e) {
             System.out.println("端口被占用");

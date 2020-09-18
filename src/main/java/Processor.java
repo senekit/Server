@@ -12,7 +12,7 @@ public class Processor {
     {
        // UserInformation userInformation = new UserInformation("1","2222","3333",0);
       //  UserInformationDao.delete(userInformation);
-        IncomeAndExpense incomeAndExpense = new IncomeAndExpense("www",1,"food","2020-09-27");
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense("rw",2,"food","2021-09-01");
 //        ResultSet rs = IncomeAndExpenseDao.selectWithEmailDesc("www");
 //        if(rs!=null)System.out.println(rs);
 //        try {
@@ -26,10 +26,10 @@ public class Processor {
 //        }catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        IncomeAndExpenseDao.deleteOne(incomeAndExpense);
+     //   IncomeAndExpenseDao.deleteOne(incomeAndExpense);
        // UserInformationDao.updateFamilyId("1",333);
 
-        //IncomeAndExpenseDao.insert(incomeAndExpense);
+        IncomeAndExpenseDao.insert(incomeAndExpense);
        // IncomeAndExpenseDao.delete(incomeAndExpense);
     }
 
