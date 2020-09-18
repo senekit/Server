@@ -16,6 +16,7 @@ public class Server {
     private static final int PORT = 8888;
 
     public static void main(String[] args) throws IOException {
+
         ServerSocket serverSocket = null;
         Socket socket = null;
         try {

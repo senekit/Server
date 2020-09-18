@@ -1,3 +1,4 @@
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -55,6 +56,7 @@ class ServerThread extends Thread {
         if(informationOfRequest[0].equals("L"))finalInformation = loginInformation(informationOfRequest);
         if(informationOfRequest[0].equals("R"))finalInformation = registerInformation(informationOfRequest);
         if(informationOfRequest[0].equals("M"))finalInformation = getIncomeAndExpense(informationOfRequest);
+        if(informationOfRequest[0].equals("I"))finalInformation = getRecentInccomeAndExpense(informationOfRequest);
     }
 
     /**
@@ -120,6 +122,26 @@ class ServerThread extends Thread {
         IncomeAndExpenseDao.insert(incomeAndExpense);
         return "C";
     }
+
+    public static String getRecentInccomeAndExpense(String[] information){
+        String email = information[1];
+        ResultSet rs = IncomeAndExpenseDao.selectWithEmailDesc(email);
+        String sentMessage = "I";
+        int temp = 10;
+        try{
+            while(rs.next()){
+                sentMessage = sentMessage + "/" + rs.getString(3)
+                        + "/" + rs.getString(2) + "/" +rs.getString(4);
+                temp++;
+                if(temp == 10)break;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return sentMessage;
+    }
+
 
 
 }
