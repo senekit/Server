@@ -34,7 +34,7 @@ public class EmailSentToUser {
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("1792700051@qq.com","vooszkfvqlkxdjhj");
+                return new PasswordAuthentication("1337491307@qq.com","cirdgestwupmifca");
             }
         });
 
@@ -46,13 +46,13 @@ public class EmailSentToUser {
 
         //连接服务器
         //password需要从QQ邮箱获取，这里这个password我已经修改，如果需要使用修改user账号和相对应的password
-        transport.connect("smtp.qq.com","1792700051@qq.com","vooszkfvqlkxdjhj");
+        transport.connect("smtp.qq.com","1337491307@qq.com","cirdgestwupmifca");
 
         //创建邮件对象
         MimeMessage mimeMessage = new MimeMessage(session);
 
         //邮件发送人
-        mimeMessage.setFrom(new InternetAddress("1792700051@qq.com"));
+        mimeMessage.setFrom(new InternetAddress("1337491307@qq.com"));
 
         //邮件接收人
         mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress("1792700051@qq.com"));
