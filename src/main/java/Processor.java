@@ -13,26 +13,27 @@ public class Processor {
        // UserInformation userInformation = new UserInformation("1","2222","3333",0);
       //  UserInformationDao.delete(userInformation);
         //IncomeAndExpense incomeAndExpense = new IncomeAndExpense("rw",2,"food","2021-09-01");
-//        ResultSet rs = IncomeAndExpenseDao.selectWithEmailDesc("www");
-//        if(rs!=null)System.out.println(rs);
-//        try {
-//            while (rs.next()) {
-//               // System.out.println("成功");
-//                System.out.println(rs.getString(1));
-//                System.out.println(rs.getString(2));
-//                System.out.println(rs.getString(3));
-//                System.out.println(rs.getString(4));
-//            }
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        ResultSet rs = IncomeAndExpenseDao.selectWithEmailDesc("请在此输入您的邮箱");
+        String sentMessage = "I";
+        if(rs!=null)System.out.println(rs);
+        try {
+            while(rs.next()){
+                sentMessage = sentMessage + "/" + rs.getString(3)
+                        + "/" + rs.getString(2) + "/" +rs.getString(4);
+               // temp++;
+               // if(temp >= 10)break;
+                System.out.println(sentMessage);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
      //   IncomeAndExpenseDao.deleteOne(incomeAndExpense);
        // UserInformationDao.updateFamilyId("1",333);
 
         //IncomeAndExpenseDao.insert(incomeAndExpense);
        // IncomeAndExpenseDao.delete(incomeAndExpense);
         //System.out.println(ManagerDao.sendEmail("1792700051@qq.com"));
-        ManagerDao.sendEmail("1792700051@qq.com");
+      //  ManagerDao.sendEmail("1792700051@qq.com");
     }
 
 

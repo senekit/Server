@@ -57,6 +57,7 @@ class ServerThread extends Thread {
         if(informationOfRequest[0].equals("R"))finalInformation = registerInformation(informationOfRequest);
         if(informationOfRequest[0].equals("M"))finalInformation = getIncomeAndExpense(informationOfRequest);
         if(informationOfRequest[0].equals("I"))finalInformation = getRecentInccomeAndExpense(informationOfRequest);
+        if(informationOfRequest[0].equals("F"))finalInformation = getFamilyId(informationOfRequest);
     }
 
     /**
@@ -124,24 +125,40 @@ class ServerThread extends Thread {
     }
 
     public static String getRecentInccomeAndExpense(String[] information){
-        String email = information[1];
+        String email = information[1].trim();
         ResultSet rs = IncomeAndExpenseDao.selectWithEmailDesc(email);
         String sentMessage = "I";
-        int temp = 10;
+        int temp = 0;
         try{
             while(rs.next()){
                 sentMessage = sentMessage + "/" + rs.getString(3)
                         + "/" + rs.getString(2) + "/" +rs.getString(4);
+              //  System.out.println("11111111111111111111111"+sentMessage);
                 temp++;
-                if(temp == 10)break;
+                if(temp >= 10)break;
+             //   System.out.println(rs.getString(2)+rs.getString(3)+rs.getString(4));
             }
 
         }catch (Exception e){
             e.printStackTrace();
         }
+      // System.out.println(sentMessage);
         return sentMessage;
     }
 
+    public static String getFamilyId(String[] information){
+        String email = information[1].trim();
+        ResultSet rs = UserInformationDao.selectWithEmail(email);
+        try{
+            while(rs.next()){
+               return rs.getString(4)+"/"+rs.getString(2);
+            }
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return "0";
+    }
 
 }
