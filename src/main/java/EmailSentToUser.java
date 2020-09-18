@@ -13,7 +13,7 @@ import java.util.Properties;
  * @create: 2020-09-18 10:41
  **/
 public class EmailSentToUser {
-    public static void main(String[] args) throws MessagingException, GeneralSecurityException {
+    public static void sendEmailtoUser(String email ,String information) throws MessagingException, GeneralSecurityException {
         //创建一个配置文件并保存
         Properties properties = new Properties();
 
@@ -55,13 +55,13 @@ public class EmailSentToUser {
         mimeMessage.setFrom(new InternetAddress("1337491307@qq.com"));
 
         //邮件接收人
-        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress("1792700051@qq.com"));
+        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(email));
 
         //邮件标题
-        mimeMessage.setSubject("Hello Ljz");
+        mimeMessage.setSubject("A Email From Server");
 
         //邮件内容
-        mimeMessage.setContent("wssb","text/html;charset=UTF-8");
+        mimeMessage.setContent(information,"text/html;charset=UTF-8");
 
         //发送邮件
         transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
