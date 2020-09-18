@@ -142,6 +142,7 @@ class ServerThread extends Thread {
         }catch (Exception e){
             e.printStackTrace();
         }
+        if(sentMessage.equals("I"))sentMessage = "Q";
       // System.out.println(sentMessage);
         return sentMessage;
     }

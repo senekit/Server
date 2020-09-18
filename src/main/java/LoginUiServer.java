@@ -2,20 +2,20 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class LoginUiServer extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
-    private JTextField managerEmail;
-    private JPasswordField passwordField1;
-    String manager;
-    String password;
+    public JPanel contentPane;
+    public JButton buttonOK;
+    public JButton buttonCancel;
+    public JTextField managerEmail;
+    public JPasswordField passwordField1;
+    public String manager;
+    public String password;
 
     public LoginUiServer() {
 
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        this.buttonOK.setEnabled(false);
+        //this.buttonOK.setEnabled(false);
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
@@ -45,6 +45,7 @@ public class LoginUiServer extends JDialog {
     }
 
     private void onOK() {
+
         // add your code here
         dispose();
     }
@@ -54,12 +55,12 @@ public class LoginUiServer extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
-        LoginUiServer dialog = new LoginUiServer();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }
+   // public static void main(String[] args) {
+//        LoginUiServer dialog = new LoginUiServer();
+//        dialog.pack();
+//        dialog.setVisible(true);
+//        System.exit(0);
+  //  }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
