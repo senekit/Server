@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class UserInformationDao {
 
+    static int familyNumber = 100;
 
     public static void insert(UserInformation userInformation){
         String sql  = "insert into user_information(email,username,password,familyid) values('"+userInformation.getEmail()+"','"+userInformation.getUserName()+"','"+userInformation.getPassword()+"',"+userInformation.getFamilyId()+")";
@@ -53,6 +54,45 @@ public class UserInformationDao {
         DataBaseController.exectue(sql);
         return;
     }
+
+    public static  void updateFamilyID(int familyId) {
+        String sql = "update user_information set familyid = 0 where familyId = '" + String.valueOf(familyId) + "'";
+        DataBaseController.exectue(sql);
+        return;
+
+    }
+
+    public static  void quitFamily(String email) {
+        String sql = "update user_information set familyid = 0 where email = '"+ email +"'";
+        DataBaseController.exectue(sql);
+        return;
+
+    }
+
+
+    public static void createFamily(String email){
+        updateFamilyId(email,familyNumber);
+        familyNumber += 1;
+    }
+
+    public static void breakUpFamily(String email){
+        String sql = "select * from user_information where email = '" + email + "'";
+        ResultSet resultSet = DataBaseController.exectue(sql);
+
+        try {
+            resultSet.next();
+         //   System.out.println(resultSet.getInt(4));
+            int familyId = resultSet.getInt(4);
+            updateFamilyID(familyId);
+        }catch (SQLException e){
+            //e.printStackTrace();
+        }
+
+        return;
+    }
+
+
+
 
 
 
