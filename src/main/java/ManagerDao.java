@@ -8,19 +8,20 @@ import java.sql.ResultSet;
  **/
 public class ManagerDao {
 
-    public static boolean isCorrect(String manager,String password){
+    public static int isCorrect(String manager,String password){
         String sql = "select * from manager where manager = '"+manager+"'";
         ResultSet rs = DataBaseController.exectue(sql);
         if(rs!=null)System.out.println(rs);
         try {
             while (rs.next()) {
                // System.out.println("成功");
-               if(password.equals(rs.getString(2)))return true;
+               if(password.equals(rs.getString(2)))return 1;
+               return 2;
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return 3;
     }
 
     public static void sendEmail(String manager){

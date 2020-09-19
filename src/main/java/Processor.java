@@ -16,20 +16,27 @@ public class Processor {
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
-        dialog.buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-
-                dialog.dispose();
-            }
-        });
-
-        dialog.buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-
-            }
-        });
+//        dialog.buttonOK.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//               // dialog.onOK();
+//                dialog.manager = dialog.managerEmail.getText();
+//                dialog.password = new  String(dialog.passwordField1.getPassword());
+//                if(ManagerDao.isCorrect(dialog.manager,dialog.password)){
+//
+//                    dialog.dispose();
+//
+//                }else{
+//
+//                }
+//            }
+//        });
+//
+//        dialog.buttonCancel.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//
+//
+//            }
+//        });
 
 
     }
@@ -37,6 +44,17 @@ public class Processor {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
 // UserInformation userInformation = new UserInformation("1","2222","3333",0);
 //  UserInformationDao.delete(userInformation);
 //IncomeAndExpense incomeAndExpense = new IncomeAndExpense("rw",2,"food","2021-09-01");

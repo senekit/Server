@@ -18,13 +18,24 @@ public class LoginUiServer extends JDialog {
         //this.buttonOK.setEnabled(false);
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                manager = managerEmail.getText();
+                password = new  String(passwordField1.getPassword());
+                if(ManagerDao.isCorrect(manager,password) == 1){
+                    onOK();
+                }else if(ManagerDao.isCorrect(manager,password) == 2){
+                    JOptionPane.showMessageDialog(null, "密码错误", "登录失败",JOptionPane.WARNING_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "该账户不存在", "登录失败",JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
 
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                manager = managerEmail.getText();
+                ManagerDao.sendEmail(manager);
+                JOptionPane.showMessageDialog(null, "成功发送邮件", "返回主页面登录",JOptionPane.INFORMATION_MESSAGE);
+                //onCancel();
             }
         });
 
@@ -44,15 +55,16 @@ public class LoginUiServer extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK() {
+    public void onOK() {
 
         // add your code here
         dispose();
     }
 
-    private void onCancel() {
+    public void onCancel() {
         // add your code here if necessary
-        dispose();
+
+         dispose();
     }
 
    // public static void main(String[] args) {
