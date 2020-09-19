@@ -4,6 +4,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @program: Server
@@ -14,8 +17,20 @@ import java.sql.SQLException;
 public class Processor {
     public static void main(String[] args)
     {
-        IncomeAndExpense incomeAndExpense = new IncomeAndExpense("ccc",-1222,"eat","2020-09-123");
-        IncomeAndExpenseDao.updateTime(incomeAndExpense);
+          System.out.println(IncomeAndExpenseDao.getRecentWeek("www"));
+//        ResultSet rs = IncomeAndExpenseDao.selectWithEmailAndTime("www","2020-09-01");
+//        if(rs!=null)System.out.println(rs);
+//        try {
+//            while(rs.next()){
+//                System.out.println(rs.getString(2));
+//            }
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+        // IncomeAndExpense incomeAndExpense = new IncomeAndExpense("ccc",-1222,"eat","2020-09-123");
+       // IncomeAndExpenseDao.updateTime(incomeAndExpense);
 //        final MainUiServer mainUiServer = new MainUiServer();
 //        mainUiServer.pack();
 //        mainUiServer.setVisible(false);
@@ -72,6 +87,7 @@ public class Processor {
 
 
     }
+
 
 
 
