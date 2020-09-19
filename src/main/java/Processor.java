@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,10 +14,71 @@ import java.sql.SQLException;
 public class Processor {
     public static void main(String[] args)
     {
-        final LoginUiServer dialog = new LoginUiServer();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense("ccc",-1222,"eat","2020-09-123");
+        IncomeAndExpenseDao.updateTime(incomeAndExpense);
+//        final MainUiServer mainUiServer = new MainUiServer();
+//        mainUiServer.pack();
+//        mainUiServer.setVisible(false);
+//
+//        final LoginUiServer dialog = new LoginUiServer();
+//
+//        dialog.addWindowListener(new WindowListener() {
+//            public void windowOpened(WindowEvent e) {
+//                System.out.println("窗口打开了");
+//                //mainUiServer.setVisible(true);
+//            }
+//
+//            public void windowClosing(WindowEvent e) {
+////                mainUiServer.setVisible(true);
+////                System.out.println("窗口2了");
+////                if(ManagerDao.isCorrect(dialog.manager,dialog.password)==1)
+////                {
+////
+////                }
+//            }
+//
+//            public void windowClosed(WindowEvent e) {
+//                mainUiServer.setVisible(true);
+//                System.out.println("窗口1了");
+//                if(ManagerDao.isCorrect(dialog.manager,dialog.password)==1)
+//                {
+//
+//                }
+//
+//            }
+//
+//            public void windowIconified(WindowEvent e) {
+//
+//            }
+//
+//            public void windowDeiconified(WindowEvent e) {
+//
+//            }
+//
+//            public void windowActivated(WindowEvent e) {
+//
+//            }
+//
+//            public void windowDeactivated(WindowEvent e) {
+//
+//            }
+//        });
+//
+//        dialog.pack();
+//        dialog.setVisible(true);
+//
+//
+//        System.exit(0);
+
+
+    }
+
+
+
+}
+
+
+
 //        dialog.buttonOK.addActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {
 //               // dialog.onOK();
@@ -37,16 +100,6 @@ public class Processor {
 //
 //            }
 //        });
-
-
-    }
-
-
-
-}
-
-
-
 
 
 

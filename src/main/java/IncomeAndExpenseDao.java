@@ -52,5 +52,29 @@ public class IncomeAndExpenseDao {
         return;
     }
 
+    public static void updateMoney(IncomeAndExpense incomeAndExpense){
+        String sql = "update income_expense set money = " + String.valueOf(incomeAndExpense.getMoney()) +
+                " where email = '" + incomeAndExpense.getEmail() + "' and type = '" + incomeAndExpense.getType() + "' and time_change = '"+
+                incomeAndExpense.getTime() + "'";
+        DataBaseController.exectue(sql);
+        return;
+    }
+
+    public static void updateType(IncomeAndExpense incomeAndExpense){
+        String sql = "update income_expense set Type = '" + incomeAndExpense.getType() + "' where email = '" + incomeAndExpense.getEmail() + "' and money = " +
+                String.valueOf(incomeAndExpense.getMoney()) + " and time_change = '" + incomeAndExpense.getTime() + "'";
+        DataBaseController.exectue(sql);
+        return;
+    }
+
+    public static void updateTime(IncomeAndExpense incomeAndExpense){
+        String sql ="update income_expense set time_change = '" + incomeAndExpense.getTime() + "' where email = '" + incomeAndExpense.getEmail() + "' and money = " +
+                String.valueOf(incomeAndExpense.getMoney()) + " and type = '" + incomeAndExpense.getType() + "'";
+        DataBaseController.exectue(sql);
+        return;
+    }
+
+
+
 
 }

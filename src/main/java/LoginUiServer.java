@@ -21,6 +21,7 @@ public class LoginUiServer extends JDialog {
                 manager = managerEmail.getText();
                 password = new  String(passwordField1.getPassword());
                 if(ManagerDao.isCorrect(manager,password) == 1){
+                    JOptionPane.showMessageDialog(null, "登录成功", "登陆成功",JOptionPane.INFORMATION_MESSAGE);
                     onOK();
                 }else if(ManagerDao.isCorrect(manager,password) == 2){
                     JOptionPane.showMessageDialog(null, "密码错误", "登录失败",JOptionPane.WARNING_MESSAGE);
@@ -43,6 +44,8 @@ public class LoginUiServer extends JDialog {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
+                manager = managerEmail.getText();
+                password = new  String(passwordField1.getPassword());
                 onCancel();
             }
         });
