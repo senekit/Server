@@ -177,7 +177,7 @@ class ServerThread extends Thread {
      * @Author: Wry is a vegtable chicken
      * @Date: 2020/9/17 18:26
      * [information]
-      * @return: java.lang.String
+     * @return: java.lang.String
      **/
     public static String loginInformation(String[] information){
         String email = information[1];
@@ -202,7 +202,7 @@ class ServerThread extends Thread {
      * @Author: Wry is a vegtable chicken
      * @Date: 2020/9/17 18:27
      * [information]
-      * @return: java.lang.String
+     * @return: java.lang.String
      **/
     public static String registerInformation(String[] information){
         String email = information[1];
@@ -229,8 +229,8 @@ class ServerThread extends Thread {
         String type = information[2];
         int money = Integer.parseInt(information[3]);
         String time = information[4];
-      //  String time = null;
-       // time = new String(information[4],"utf-8");
+        //  String time = null;
+        // time = new String(information[4],"utf-8");
         IncomeAndExpense incomeAndExpense = new IncomeAndExpense(email,money,type,time);
         IncomeAndExpenseDao.insert(incomeAndExpense);
         return "C";
@@ -245,17 +245,17 @@ class ServerThread extends Thread {
             while(rs.next()){
                 sentMessage = sentMessage + "/" + rs.getString(3)
                         + "/" + rs.getString(2) + "/" +rs.getString(4);
-              //  System.out.println("11111111111111111111111"+sentMessage);
+                //  System.out.println("11111111111111111111111"+sentMessage);
                 temp++;
                 if(temp >= 10)break;
-             //   System.out.println(rs.getString(2)+rs.getString(3)+rs.getString(4));
+                //   System.out.println(rs.getString(2)+rs.getString(3)+rs.getString(4));
             }
 
         }catch (Exception e){
             e.printStackTrace();
         }
         if(sentMessage.equals("I"))sentMessage = "Q";
-      // System.out.println(sentMessage);
+        // System.out.println(sentMessage);
         return sentMessage;
     }
 
@@ -264,7 +264,7 @@ class ServerThread extends Thread {
         ResultSet rs = UserInformationDao.selectWithEmail(email);
         try{
             while(rs.next()){
-               return rs.getString(4)+"/"+rs.getString(2);
+                return rs.getString(4)+"/"+rs.getString(2);
             }
 
         }catch (Exception e){
