@@ -132,10 +132,15 @@ public class IncomeAndExpenseDao {
                 ans = ans + resultSet.getString(2)+"/";
                 ResultSet rs = selectWithEmailDesc(resultSet.getString(1));
                 int count = 0;
-                while(rs.next()&&count<=3){
+                while(rs.next()&&count<3){
                     count++;
                     ans = ans + rs.getString(3)+"/"+rs.getString(2)+"/"+rs.getString(4)+"/";
                 }
+                while(count<3){
+                    count++;
+                    ans = ans +" / / /";
+                }
+
             }
             return  ans;
         }catch(Exception e){
