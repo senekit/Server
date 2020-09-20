@@ -49,6 +49,12 @@ public class UserInformationDao {
         return resultSet;
     }
 
+    public static void updatePassword(String email,String password){
+        String sql = "update user_information set password = '" + password + "' where email = '" + email + "'";
+        DataBaseController.exectue(sql);
+        return;
+    }
+
     public static void updateFamilyId(String email, int familyId){
         String sql = "update user_information set familyid = '"+String.valueOf(familyId) + "' where email = '" + email + "'";
         DataBaseController.exectue(sql);

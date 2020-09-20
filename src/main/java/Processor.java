@@ -17,8 +17,7 @@ import java.util.Date;
 public class Processor {
     public static void main(String[] args)
     {
-       //  UserInformationDao.breakUpFamily("");
-           UserInformationDao.quitFamily("请在此输入您的邮箱");
+       UserInformationDao.updatePassword("1","1");
   //        System.out.println(IncomeAndExpenseDao.getRecentWeek("www"));
 //        ResultSet rs = IncomeAndExpenseDao.selectWithEmailAndTime("www","2020-09-01");
 //        if(rs!=null)System.out.println(rs);
