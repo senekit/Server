@@ -31,8 +31,8 @@ public class UserInformationDao {
         return;
     }
 
-    public static void delete(UserInformation userInformation){
-        String sql = "delete from user_information where email ='" + userInformation.getEmail() + "'";
+    public static void delete(String email){
+        String sql = "delete from user_information where email ='" + email + "'";
         DataBaseController.exectue(sql);
         return;
     }

@@ -86,7 +86,7 @@ public class IncomeAndExpenseDao {
 
     public static String getRecentWeek(String email)
     {
-        String ans = "";
+        String ans = "CAO";
 
         for(int i=0;i<=6;i++)
         {
@@ -103,6 +103,7 @@ public class IncomeAndExpenseDao {
             }catch (SQLException e){
                 e.printStackTrace();
             }
+            expense = expense * (-1);
             ans = ans + "/" + String.valueOf(income) +"/" + String.valueOf(expense);
         }
 

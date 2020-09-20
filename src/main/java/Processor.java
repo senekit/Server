@@ -19,7 +19,9 @@ import java.util.Date;
 public class Processor {
     public static void main(String[] args)
     {
-        ServerThread.sendIdentifyCode("1792700051@qq.com");
+        //ServerThread.sendIdentifyCod("1792700051@qq.com");
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense("1472114549@qq.com",666,"工资","2020-09-02");
+        IncomeAndExpenseDao.deleteOne(incomeAndExpense);
 
     }
 

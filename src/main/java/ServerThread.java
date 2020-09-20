@@ -60,8 +60,84 @@ class ServerThread extends Thread {
         if(informationOfRequest[0].equals("M"))finalInformation = getIncomeAndExpense(informationOfRequest);
         if(informationOfRequest[0].equals("I"))finalInformation = getRecentInccomeAndExpense(informationOfRequest);
         if(informationOfRequest[0].equals("F"))finalInformation = getFamilyId(informationOfRequest);
-
+        if(informationOfRequest[0].equals("T"))finalInformation = updateIncomeAndExpenseType(informationOfRequest);
+        if(informationOfRequest[0].equals("O"))finalInformation = updateIncomeAndExpenseMoney(informationOfRequest);
+        if(informationOfRequest[0].equals("D"))finalInformation = updateIncomeAndExpenseTime(informationOfRequest);
+        if(informationOfRequest[0].equals("E"))finalInformation = deleteIncomeAndExpense(informationOfRequest);
+        if(informationOfRequest[0].equals("P"))finalInformation = updatePassword(informationOfRequest);
+        if(informationOfRequest[0].equals("C"))finalInformation = sendIdentifyCode(informationOfRequest);
+        if(informationOfRequest[0].equals("A"))finalInformation = deleteUser(informationOfRequest);
+        if(informationOfRequest[0].equals("B"))finalInformation = getWeek(informationOfRequest);
     }
+
+    public static  String getWeek(String[] information){
+        String email = information[1].trim();
+        return IncomeAndExpenseDao.getRecentWeek(email);
+    }
+
+
+
+    public static String updatePassword(String[] information){
+        String email = information[1].trim();
+        String password = information[2].trim();
+        UserInformationDao.updatePassword(email,password);
+        return "S";
+    }
+
+    public static String deleteUser(String[] information){
+        String email = information[1].trim();
+        UserInformationDao.delete(email);
+        return "S";
+    }
+
+
+    public static String sendIdentifyCode(String[] information){
+        String email = information[1].trim();
+        int identifyCode = (int)(Math.random()*10000);
+        try {
+            EmailSentToUser.sendEmailtoUser(email,"验证码为:" + String.valueOf(identifyCode));
+            System.out.println("");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return "F";
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+            return "F";
+        }
+        return "S/" + String.valueOf(identifyCode);
+    }
+
+    public static String updateIncomeAndExpenseType(String[] information)
+    {
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense(information[1].trim(),Integer.valueOf(information[3].trim()),information[2].trim(),information[4].trim());
+        IncomeAndExpenseDao.updateType(incomeAndExpense);
+        return "S";
+    }
+
+    public static String updateIncomeAndExpenseTime(String[] information)
+    {
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense(information[1].trim(),Integer.valueOf(information[3].trim()),information[2].trim(),information[4].trim());
+        IncomeAndExpenseDao.updateTime(incomeAndExpense);
+        return "S";
+    }
+
+    public static String updateIncomeAndExpenseMoney(String[] information)
+    {
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense(information[1].trim(),Integer.valueOf(information[3].trim()),information[2].trim(),information[4].trim());
+        IncomeAndExpenseDao.updateMoney(incomeAndExpense);
+        return "S";
+    }
+
+    public static String deleteIncomeAndExpense(String[] information){
+        //System.out.println("1111");
+        IncomeAndExpense incomeAndExpense = new IncomeAndExpense(information[1].trim(),Integer.valueOf(information[3].trim()),information[2].trim(),information[4].trim());
+        IncomeAndExpenseDao.deleteOne(incomeAndExpense);
+        return "S";
+    }
+
+
+
+
 
     /**
      * @Description:返回登录的结果
@@ -163,20 +239,6 @@ class ServerThread extends Thread {
         }
 
         return "0";
-    }
-
-    public static String sendIdentifyCode(String email){
-        int identifyCode = (int)(Math.random()*10000);
-        try {
-            EmailSentToUser.sendEmailtoUser(email,"验证码为:" + String.valueOf(identifyCode));
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            return "F";
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-            return "F";
-        }
-        return "S/" + String.valueOf(identifyCode);
     }
 
 
