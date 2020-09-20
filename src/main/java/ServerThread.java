@@ -1,5 +1,4 @@
 import javax.mail.MessagingException;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

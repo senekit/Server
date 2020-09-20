@@ -1,6 +1,6 @@
+import javafx.application.Application;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,6 +16,8 @@ public class Server {
     private static final int PORT = 8888;
 
     public static void main(String[] args) throws IOException {
+
+        Application.launch(ServerLoginInUi.class);
 
         ServerSocket serverSocket = null;
         Socket socket = null;

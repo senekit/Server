@@ -22,7 +22,7 @@ public class DataBaseController {
         this.port = "3306";
         this.dbName = "database";
         this.dbUser = "root";
-        this.password = "1234";
+        this.password = "8904652xuexi~!@";
     }
 
     public static ResultSet exectue(String sql) {
