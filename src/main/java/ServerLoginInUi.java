@@ -172,10 +172,6 @@ public class ServerLoginInUi extends Application {
             primaryStage.close();
         });
 
-
-
-
-
         primaryStage.setScene(new Scene(pane, 300, 500));
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();

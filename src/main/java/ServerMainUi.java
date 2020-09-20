@@ -17,6 +17,7 @@ public class ServerMainUi extends Application {
         Pane serverLoginPane = new Pane();
 
         TextArea mainInformationTextArea = new TextArea();
+
         mainInformationTextArea.setPrefWidth(350);
         mainInformationTextArea.setPrefHeight(300);
         mainInformationTextArea.setEditable(false);//不可编辑
