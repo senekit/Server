@@ -67,7 +67,41 @@ class ServerThread extends Thread {
         if(informationOfRequest[0].equals("C"))finalInformation = sendIdentifyCode(informationOfRequest);
         if(informationOfRequest[0].equals("A"))finalInformation = deleteUser(informationOfRequest);
         if(informationOfRequest[0].equals("B"))finalInformation = getWeek(informationOfRequest);
+        if(informationOfRequest[0].equals("G"))finalInformation = getFamilyInformation(informationOfRequest);
+        if(informationOfRequest[0].equals("H"))finalInformation = createFamily(informationOfRequest);
+        if(informationOfRequest[0].equals("Z"))finalInformation = deleteFamily(informationOfRequest);
+        if(informationOfRequest[0].equals("J"))finalInformation = joinFamily(informationOfRequest);
     }
+
+    public static String joinFamily(String[] information){
+        String email = information[1].trim();
+        int id = Integer.valueOf(information[2].trim());
+        UserInformationDao.createFamilyId(email,id);
+        return "S";
+    }
+
+
+    public static String deleteFamily(String[] information){
+        int id = Integer.valueOf(information[1].trim());
+        UserInformationDao.updateFamilyID(id);
+        return "S";
+    }
+
+
+    public static String createFamily(String[] information){
+        int number = (int)(Math.random()*1000000);
+        String email = information[1].trim();
+        UserInformationDao.createFamilyId(email,number);
+        String ans ="I/"+String.valueOf(number);
+        return ans;
+    }
+
+
+    public static String getFamilyInformation(String[] information) {
+        String email = information[1].trim();
+        return IncomeAndExpenseDao.getFamilyMember(UserInformationDao.getFamilyId(email),email);
+    }
+
 
     public static  String getWeek(String[] information){
         String email = information[1].trim();

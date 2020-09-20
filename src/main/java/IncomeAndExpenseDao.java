@@ -124,10 +124,12 @@ public class IncomeAndExpenseDao {
 
 //select * from StudentGrade a where (select count(1) from studentGrade where subId=a.subId and grade>=a.grade)<=2
 
-   public static String getFamilyMember(ResultSet resultSet,String email){
+    public static String getFamilyMember(ResultSet resultSet,String email){
         try{
             String ans = "I/";
-            while(resultSet.next()){
+            int times = 0;
+            while(resultSet.next()&&times<3){
+                times ++;
                 if(resultSet.getString(1).equals(email))continue;
                 ans = ans + resultSet.getString(2)+"/";
                 ResultSet rs = selectWithEmailDesc(resultSet.getString(1));
@@ -142,12 +144,19 @@ public class IncomeAndExpenseDao {
                 }
 
             }
+
+            while(times<=3){
+                // System.out.println(times+"1111");
+                times++;
+                ans = ans +" / / / / / / / / / /";
+            }
+
             return  ans;
         }catch(Exception e){
             e.printStackTrace();
         }
         return null;
-   }
+    }
 
 
 

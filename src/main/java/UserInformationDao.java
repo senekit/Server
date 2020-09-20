@@ -61,6 +61,11 @@ public class UserInformationDao {
         return;
     }
 
+    public static void createFamilyId(String email,int number){
+        updateFamilyId(email,number);
+
+    }
+
     public static  void updateFamilyID(int familyId) {
         String sql = "update user_information set familyid = 0 where familyId = '" + String.valueOf(familyId) + "'";
         DataBaseController.exectue(sql);
