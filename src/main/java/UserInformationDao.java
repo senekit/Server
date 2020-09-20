@@ -61,6 +61,11 @@ public class UserInformationDao {
         return;
     }
 
+    public static void createFamilyId(String email,int number){
+        updateFamilyId(email,number);
+
+    }
+
     public static  void updateFamilyID(int familyId) {
         String sql = "update user_information set familyid = 0 where familyId = '" + String.valueOf(familyId) + "'";
         DataBaseController.exectue(sql);
@@ -87,7 +92,7 @@ public class UserInformationDao {
 
         try {
             resultSet.next();
-         //   System.out.println(resultSet.getInt(4));
+            //   System.out.println(resultSet.getInt(4));
             int familyId = resultSet.getInt(4);
             updateFamilyID(familyId);
         }catch (SQLException e){
