@@ -122,5 +122,28 @@ public class IncomeAndExpenseDao {
     }
 
 
+//select * from StudentGrade a where (select count(1) from studentGrade where subId=a.subId and grade>=a.grade)<=2
+
+   public static String getFamilyMember(ResultSet resultSet,String email){
+        try{
+            String ans = "I/";
+            while(resultSet.next()){
+                if(resultSet.getString(1).equals(email))continue;
+                ans = ans + resultSet.getString(2)+"/";
+                ResultSet rs = selectWithEmailDesc(resultSet.getString(1));
+                int count = 0;
+                while(rs.next()&&count<=3){
+                    count++;
+                    ans = ans + rs.getString(3)+"/"+rs.getString(2)+"/"+rs.getString(4)+"/";
+                }
+            }
+            return  ans;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+   }
+
+
 
 }

@@ -97,9 +97,20 @@ public class UserInformationDao {
         return;
     }
 
-
-
-
+    public static ResultSet getFamilyId(String email){
+        String sql1 = "select familyid from user_information where email ='" + email +"'";
+        ResultSet rs1 = DataBaseController.exectue(sql1);
+        try {
+            rs1.next();
+            int familyId = rs1.getInt(1);
+            String sql2 = "select * from user_information where familyid =" + String.valueOf(familyId);
+            ResultSet resultSet = DataBaseController.exectue(sql2);
+            return  resultSet;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 
 
 }
