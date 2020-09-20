@@ -39,7 +39,7 @@ public class EmailSentToUser {
         });
 
         //开启debug模式
-        session.setDebug(true);
+//        session.setDebug(true);
 
         //获取连接对象
         Transport transport = session.getTransport();

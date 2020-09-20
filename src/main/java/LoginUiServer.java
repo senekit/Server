@@ -70,12 +70,12 @@ public class LoginUiServer extends JDialog {
          dispose();
     }
 
-   // public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        LoginUiServer dialog = new LoginUiServer();
 //        dialog.pack();
 //        dialog.setVisible(true);
 //        System.exit(0);
-  //  }
+//    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

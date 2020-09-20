@@ -1,8 +1,10 @@
+import javax.mail.MessagingException;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.security.GeneralSecurityException;
 import java.sql.ResultSet;
 
 /**
@@ -58,6 +60,7 @@ class ServerThread extends Thread {
         if(informationOfRequest[0].equals("M"))finalInformation = getIncomeAndExpense(informationOfRequest);
         if(informationOfRequest[0].equals("I"))finalInformation = getRecentInccomeAndExpense(informationOfRequest);
         if(informationOfRequest[0].equals("F"))finalInformation = getFamilyId(informationOfRequest);
+
     }
 
     /**
@@ -161,5 +164,21 @@ class ServerThread extends Thread {
 
         return "0";
     }
+
+    public static String sendIdentifyCode(String email){
+        int identifyCode = (int)(Math.random()*10000);
+        try {
+            EmailSentToUser.sendEmailtoUser(email,"验证码为:" + String.valueOf(identifyCode));
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return "F";
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+            return "F";
+        }
+        return "S/" + String.valueOf(identifyCode);
+    }
+
+
 
 }

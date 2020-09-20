@@ -1,7 +1,9 @@
+import javax.mail.MessagingException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.security.GeneralSecurityException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -17,8 +19,10 @@ import java.util.Date;
 public class Processor {
     public static void main(String[] args)
     {
-       UserInformationDao.updatePassword("1","1");
-  //        System.out.println(IncomeAndExpenseDao.getRecentWeek("www"));
+        ServerThread.sendIdentifyCode("1792700051@qq.com");
+
+    }
+
 //        ResultSet rs = IncomeAndExpenseDao.selectWithEmailAndTime("www","2020-09-01");
 //        if(rs!=null)System.out.println(rs);
 //        try {
@@ -92,7 +96,6 @@ public class Processor {
 
 
 
-}
 
 
 
