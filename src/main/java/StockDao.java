@@ -12,19 +12,19 @@ import java.util.List;
 public class StockDao {
 
     public static ResultSet selectWithTodayTurnOver(){
-        String sql = "select  * from stock order by chengjiaoliang desc limit 10";
+        String sql = "select  * from stock order by chengjiaoliang desc limit 8";
         ResultSet rs = DataBaseController.exectue(sql);
         return rs;
     }
 
     public static ResultSet selectWithTodayZhenFu(){
-        String sql = "select * from stock order by zhenfu desc limit 10";
+        String sql = "select * from stock order by zhenfu desc limit 8";
         ResultSet rs = DataBaseController.exectue(sql);
         return rs;
     }
 
     public static ResultSet selecttWithChengJiaoE(){
-        String sql = "select * from stock order by chengjiaoe desc limit 10";
+        String sql = "select * from stock order by chengjiaoe desc limit 8";
         ResultSet rs = DataBaseController.exectue(sql);
         return rs;
     }

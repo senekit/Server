@@ -17,7 +17,7 @@ class ServerThread extends Thread {
     private Socket socket ;
     InputStream inputStream;
     OutputStream outputStream;
-    public static String finalInformation;
+    public  String finalInformation;
 
     public  ServerThread(Socket socket){
         this.socket=socket;
@@ -31,9 +31,11 @@ class ServerThread extends Thread {
                 byte[] bytes = new byte[1024];
                 inputStream.read(bytes);
                 String string = new String(bytes);
-                System.out.println(string);
+               // System.out.println(string);
                 processing(string);
                 //向客户端发送消息
+                System.out.println("i////"+finalInformation);
+                System.out.println(recommendStockSteady());
                 outputStream = socket.getOutputStream();
                 outputStream.write(finalInformation.getBytes());
                 if(finalInformation!=null)finalInformation = null;
@@ -53,7 +55,7 @@ class ServerThread extends Thread {
         }
     }
 
-    public static void processing(String message){
+    public  void processing(String message){
         String[] informationOfRequest = message.split("/");
         if(informationOfRequest[0].equals("L"))finalInformation = loginInformation(informationOfRequest);
         if(informationOfRequest[0].equals("R"))finalInformation = registerInformation(informationOfRequest);
@@ -72,24 +74,25 @@ class ServerThread extends Thread {
         if(informationOfRequest[0].equals("H"))finalInformation = createFamily(informationOfRequest);
         if(informationOfRequest[0].equals("Z"))finalInformation = deleteFamily(informationOfRequest);
         if(informationOfRequest[0].equals("J"))finalInformation = joinFamily(informationOfRequest);
-        if(informationOfRequest[0].equals("WS"))finalInformation = recommendStockSteady();
-        if(informationOfRequest[0].equals("HS"))finalInformation = recommendStockHot();
-        if(informationOfRequest[0].equals("RS"))finalInformation = recommendStockRisk();
+        if(informationOfRequest[0].trim().equals("WS"))finalInformation = recommendStockSteady();
+        if(informationOfRequest[0].trim().equals("HS"))finalInformation = recommendStockHot();
+        if(informationOfRequest[0].trim().equals("RS"))finalInformation = recommendStockRisk();
     }
 
     public static String recommendStockSteady(){
        ResultSet resultSet =  StockDao.selectWithTodayZhenFu();
-       String message = "S/";
+       String message = "";
        try{
            while(resultSet.next()){
-               message = message + "/" + resultSet.getString(1);
-               message = message + "/" + resultSet.getString(2);
-               message = message + "/" + resultSet.getString(3);
-               message = message + "/" + resultSet.getString(4);
-               message = message + "/" + resultSet.getString(5);
-               message = message + "/" + resultSet.getString(6);
-               message = message + "/" + resultSet.getString(9);
+               message = message  + resultSet.getString(1)+ "/";
+               message = message  + resultSet.getString(2)+ "/";
+               message = message  + resultSet.getString(3)+ "/";
+               message = message  + resultSet.getString(4)+ "/";
+               message = message  + resultSet.getString(5)+ "/";
+               message = message  + resultSet.getString(6)+ "/";
+               message = message  + resultSet.getString(9)+ "/";
            }
+           message = message +"#"+recommendStockRisk();
            return message;
        }catch(Exception e){
            e.printStackTrace();
@@ -99,16 +102,16 @@ class ServerThread extends Thread {
 
     public static String recommendStockHot(){
         ResultSet resultSet =  StockDao.selectWithTodayTurnOver();
-        String message = "S/";
+        String message = "";
         try{
             while(resultSet.next()){
-                message = message + "/" + resultSet.getString(1);
-                message = message + "/" + resultSet.getString(2);
-                message = message + "/" + resultSet.getString(3);
-                message = message + "/" + resultSet.getString(4);
-                message = message + "/" + resultSet.getString(5);
-                message = message + "/" + resultSet.getString(6);
-                message = message + "/" + resultSet.getString(9);
+                message = message  + resultSet.getString(1)+ "/";
+                message = message  + resultSet.getString(2)+ "/";
+                message = message  + resultSet.getString(3)+ "/";
+                message = message  + resultSet.getString(4)+ "/";
+                message = message  + resultSet.getString(5)+ "/";
+                message = message  + resultSet.getString(6)+ "/";
+                message = message  + resultSet.getString(9)+ "/";
             }
             return message;
         }catch(Exception e){
@@ -119,16 +122,16 @@ class ServerThread extends Thread {
 
     public static String recommendStockRisk(){
         ResultSet resultSet =  StockDao.selecttWithChengJiaoE();
-        String message = "S/";
+        String message = "";
         try{
             while(resultSet.next()){
-                message = message + "/" + resultSet.getString(1);
-                message = message + "/" + resultSet.getString(2);
-                message = message + "/" + resultSet.getString(3);
-                message = message + "/" + resultSet.getString(4);
-                message = message + "/" + resultSet.getString(5);
-                message = message + "/" + resultSet.getString(6);
-                message = message + "/" + resultSet.getString(9);
+                message = message  + resultSet.getString(1)+ "/";
+                message = message  + resultSet.getString(2)+ "/";
+                message = message  + resultSet.getString(3)+ "/";
+                message = message  + resultSet.getString(4)+ "/";
+                message = message  + resultSet.getString(5)+ "/";
+                message = message  + resultSet.getString(6)+ "/";
+                message = message  + resultSet.getString(9)+ "/";
             }
             return message;
         }catch(Exception e){

@@ -18,7 +18,7 @@ public class Server {
 
     public static void main(String[] args) throws Exception {
 
-        Application.launch(ServerMainUi.class);
+    //    Application.launch(ServerMainUi.class);
 
         ServerSocket serverSocket = null;
         Socket socket = null;

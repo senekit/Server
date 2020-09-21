@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.security.GeneralSecurityException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,19 +23,12 @@ import java.util.Date;
 public class Processor {
     public static void main(String[] args)
     {
-        ResultSet rs = StockDao.selecttWithChengJiaoE();
-        try{
-            int n = 0 ;
-            while(rs.next()){
-                System.out.println(n++);
-                System.out.print(rs.getString(1)+" ");
-                System.out.print(rs.getString(2));
-                System.out.println(" "+rs.getString(3)+"  "+rs.getString(4));
-                System.out.println();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        PrintStream oldPrintStream = System.out; //将原来的System.out交给printStream 对象保存
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(bos)); //设置新的out
+        System.out.println("5555555");
+        System.setOut(oldPrintStream);
+        System.out.println(bos.toString());
     }
 
 //        ResultSet rs = IncomeAndExpenseDao.selectWithEmailAndTime("www","2020-09-01");
