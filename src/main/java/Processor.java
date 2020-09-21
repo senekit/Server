@@ -21,9 +21,19 @@ import java.util.Date;
 public class Processor {
     public static void main(String[] args)
     {
-        Application.launch(ServerMainUi.class);
-        ServerMainUi.mainInformationTextArea.appendText("wssb");
-        ServerMainUi.serverLoginPane.getChildren().add(ServerMainUi.mainInformationTextArea);
+        ResultSet rs = StockDao.selecttWithChengJiaoE();
+        try{
+            int n = 0 ;
+            while(rs.next()){
+                System.out.println(n++);
+                System.out.print(rs.getString(1)+" ");
+                System.out.print(rs.getString(2));
+                System.out.println(" "+rs.getString(3)+"  "+rs.getString(4));
+                System.out.println();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 //        ResultSet rs = IncomeAndExpenseDao.selectWithEmailAndTime("www","2020-09-01");
