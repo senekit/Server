@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.security.GeneralSecurityException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @program: Server
@@ -71,7 +72,71 @@ class ServerThread extends Thread {
         if(informationOfRequest[0].equals("H"))finalInformation = createFamily(informationOfRequest);
         if(informationOfRequest[0].equals("Z"))finalInformation = deleteFamily(informationOfRequest);
         if(informationOfRequest[0].equals("J"))finalInformation = joinFamily(informationOfRequest);
+        if(informationOfRequest[0].equals("WS"))finalInformation = recommendStockSteady();
+        if(informationOfRequest[0].equals("HS"))finalInformation = recommendStockHot();
+        if(informationOfRequest[0].equals("RS"))finalInformation = recommendStockRisk();
     }
+
+    public static String recommendStockSteady(){
+       ResultSet resultSet =  StockDao.selectWithTodayZhenFu();
+       String message = "S/";
+       try{
+           while(resultSet.next()){
+               message = message + "/" + resultSet.getString(1);
+               message = message + "/" + resultSet.getString(2);
+               message = message + "/" + resultSet.getString(3);
+               message = message + "/" + resultSet.getString(4);
+               message = message + "/" + resultSet.getString(5);
+               message = message + "/" + resultSet.getString(6);
+               message = message + "/" + resultSet.getString(9);
+           }
+           return message;
+       }catch(Exception e){
+           e.printStackTrace();
+       }
+       return "F";
+    }
+
+    public static String recommendStockHot(){
+        ResultSet resultSet =  StockDao.selectWithTodayTurnOver();
+        String message = "S/";
+        try{
+            while(resultSet.next()){
+                message = message + "/" + resultSet.getString(1);
+                message = message + "/" + resultSet.getString(2);
+                message = message + "/" + resultSet.getString(3);
+                message = message + "/" + resultSet.getString(4);
+                message = message + "/" + resultSet.getString(5);
+                message = message + "/" + resultSet.getString(6);
+                message = message + "/" + resultSet.getString(9);
+            }
+            return message;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "F";
+    }
+
+    public static String recommendStockRisk(){
+        ResultSet resultSet =  StockDao.selecttWithChengJiaoE();
+        String message = "S/";
+        try{
+            while(resultSet.next()){
+                message = message + "/" + resultSet.getString(1);
+                message = message + "/" + resultSet.getString(2);
+                message = message + "/" + resultSet.getString(3);
+                message = message + "/" + resultSet.getString(4);
+                message = message + "/" + resultSet.getString(5);
+                message = message + "/" + resultSet.getString(6);
+                message = message + "/" + resultSet.getString(9);
+            }
+            return message;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "F";
+    }
+
 
     public static String joinFamily(String[] information){
         String email = information[1].trim();
