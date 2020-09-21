@@ -1,3 +1,5 @@
+import javafx.application.Application;
+
 import javax.mail.MessagingException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +21,9 @@ import java.util.Date;
 public class Processor {
     public static void main(String[] args)
     {
-        //ServerThread.sendIdentifyCod("1792700051@qq.com");
-       System.out.println(IncomeAndExpenseDao.getFamilyMember(UserInformationDao.getFamilyId("1"),"1"));
+        Application.launch(ServerMainUi.class);
+        ServerMainUi.mainInformationTextArea.appendText("wssb");
+        ServerMainUi.serverLoginPane.getChildren().add(ServerMainUi.mainInformationTextArea);
     }
 
 //        ResultSet rs = IncomeAndExpenseDao.selectWithEmailAndTime("www","2020-09-01");

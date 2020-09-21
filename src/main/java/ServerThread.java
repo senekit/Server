@@ -82,6 +82,7 @@ class ServerThread extends Thread {
 
 
     public static String deleteFamily(String[] information){
+
         int id = Integer.valueOf(information[1].trim());
         UserInformationDao.updateFamilyID(id);
         return "S";

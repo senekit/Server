@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,9 +16,9 @@ public class Server {
     //监听端口
     private static final int PORT = 8888;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
-        Application.launch(ServerLoginInUi.class);
+        Application.launch(ServerMainUi.class);
 
         ServerSocket serverSocket = null;
         Socket socket = null;

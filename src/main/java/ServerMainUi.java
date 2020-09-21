@@ -13,10 +13,15 @@ import javafx.stage.Stage;
  * @create: 2020-09-20 16:26
  **/
 public class ServerMainUi extends Application {
-    public void start(Stage primaryStage) throws Exception {
-        Pane serverLoginPane = new Pane();
 
-        TextArea mainInformationTextArea = new TextArea();
+    public static TextArea mainInformationTextArea = null;
+    public static  Pane   serverLoginPane = null;
+
+
+    public void start(Stage primaryStage) throws Exception {
+
+        serverLoginPane = new Pane();
+        mainInformationTextArea = new TextArea();
 
         mainInformationTextArea.setPrefWidth(350);
         mainInformationTextArea.setPrefHeight(300);
@@ -29,4 +34,9 @@ public class ServerMainUi extends Application {
         primaryStage.setScene(new Scene(serverLoginPane,450,500));
         primaryStage.show();
     }
+
+    public void addText(String information){
+        mainInformationTextArea.appendText("/n"+information);
+    }
+
 }
