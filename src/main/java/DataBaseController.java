@@ -26,13 +26,12 @@ public class DataBaseController {
     }
 
     public static ResultSet exectue(String sql) {
-        Connection connection = getConnection();
+        Connection connection = JdbcConnection.connection;
         if(connection==null)return null;
         try {
             PreparedStatement pst = connection.prepareStatement(sql);
             String sqlType = sql.substring(0,6);
             if(sqlType.equals("select")) {
-
 
                 return pst.executeQuery();
 
@@ -49,30 +48,30 @@ public class DataBaseController {
         return  null;
     }
 
-    public static Connection getConnection() {
-        try {
-			Class.forName("com.mysql.jdbc.Driver");
-            hostIp = "127.0.0.1";
-            port = "3306";
-            dbName = "database";
-            dbUser = "root";
-            password = "1234";
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("数据库包无法加载");
-			e.printStackTrace();
-		}
-
-        String dbUrl = "jdbc:mysql://localhost:3306/database";
-        try{
-            Connection connection = DriverManager.getConnection(dbUrl,dbUser,password);
-            return connection;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            //return  getConnection();
-        }
-       return null;
-    }
+//    public static Connection getConnection() {
+//        try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//            hostIp = "127.0.0.1";
+//            port = "3306";
+//            dbName = "database";
+//            dbUser = "root";
+//            password = "1234";
+//
+//		} catch (ClassNotFoundException e) {
+//			System.out.println("数据库包无法加载");
+//			e.printStackTrace();
+//		}
+//
+//        String dbUrl = "jdbc:mysql://localhost:3306/database";
+//        try{
+//            Connection connection = DriverManager.getConnection(dbUrl,dbUser,password);
+//            return connection;
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//            //return  getConnection();
+//        }
+//       return null;
+//    }
 
 }
 ////连接数据库

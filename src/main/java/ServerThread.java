@@ -18,9 +18,11 @@ class ServerThread extends Thread {
     InputStream inputStream;
     OutputStream outputStream;
     public  String finalInformation;
+    MainUiServer mainUiServer = null;
 
-    public  ServerThread(Socket socket){
+    public  ServerThread(Socket socket,MainUiServer mainUiServer){
         this.socket=socket;
+        this.mainUiServer = mainUiServer;
     }
     public void run(){
         try {
@@ -34,8 +36,6 @@ class ServerThread extends Thread {
                // System.out.println(string);
                 processing(string);
                 //向客户端发送消息
-                System.out.println("i////"+finalInformation);
-                System.out.println(recommendStockSteady());
                 outputStream = socket.getOutputStream();
                 outputStream.write(finalInformation.getBytes());
                 if(finalInformation!=null)finalInformation = null;
@@ -43,15 +43,19 @@ class ServerThread extends Thread {
 
             }
         } catch (Exception e) {
-            System.out.println("客户端主动断开连接了");
+            System.out.println("服务端主动断开连接了");
+            this.interrupt();
             //e.printStackTrace();
         }
         //操作结束，关闭socket
         try{
             socket.close();
+            System.out.println("服务端主动断开连接了");
+            this.interrupt();
         }catch(IOException e){
             System.out.println("关闭连接出现异常");
             e.printStackTrace();
+            this.interrupt();
         }
     }
 
@@ -248,21 +252,29 @@ class ServerThread extends Thread {
      * [information]
      * @return: java.lang.String
      **/
-    public static String loginInformation(String[] information){
+    public  String loginInformation(String[] information){
         String email = information[1];
         String password = information[2];
         ResultSet rs = UserInformationDao.selectWithEmail(email);
         try {
             while (rs.next()) {
                 if(email.equals(rs.getString(1))) {
-                    if(password.equals(rs.getString(3)))return "A";
-                    else return "F";
+                    if(password.equals(rs.getString(3))){
+                        mainUiServer.add(email+"登录成功");
+                        return "A";
+                    }
+                    else
+                    {
+                        mainUiServer.add(email+"登录失败");
+                        return "F";
+                    }
                 }
                 //System.out.println(rs.getString(3));
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
+        mainUiServer.add(email+"不存在");
         return "N";
     }
 

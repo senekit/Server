@@ -16,6 +16,7 @@ public class Server {
     //监听端口
     private static final int PORT = 8888;
 
+
     public static void main(String[] args) throws Exception {
 
     //    Application.launch(ServerMainUi.class);
@@ -26,11 +27,13 @@ public class Server {
             //建立服务器的Socket，并设定一个监听的端口PORT
             serverSocket = new ServerSocket(PORT);
             //由于需要进行循环监听，因此获取消息的操作应放在一个while大循环中
+            UiThread uiThread = new UiThread();
+            uiThread.start();
             while(true){
                 try {
                     //建立跟客户端的连接
                     socket = serverSocket.accept();
-                    ServerThread thread = new ServerThread(socket);
+                    ServerThread thread = new ServerThread(socket,uiThread.mainUiServer);
                     thread.start();
 
                 } catch (Exception e) {
@@ -46,7 +49,9 @@ public class Server {
         finally {
             serverSocket.close();
         }
+
     }
+
 }
 
 //test
