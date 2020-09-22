@@ -26,6 +26,7 @@ public class DataBaseController {
     }
 
     public static ResultSet exectue(String sql) {
+        if(JdbcConnection.connection == null)JdbcConnection.connection = JdbcConnection.getConnection();
         Connection connection = JdbcConnection.connection;
         if(connection==null)return null;
         try {
@@ -39,7 +40,7 @@ public class DataBaseController {
               //  System.out.println("11111");
                 pst.execute();
                 pst.close();
-                connection.close();
+//                connection.close();
                 return null;
             }
         } catch (SQLException throwables) {

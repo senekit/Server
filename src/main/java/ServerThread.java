@@ -83,9 +83,10 @@ class ServerThread extends Thread {
         if(informationOfRequest[0].trim().equals("RS"))finalInformation = recommendStockRisk();
     }
 
-    public static String recommendStockSteady(){
+    public  String recommendStockSteady(){
        ResultSet resultSet =  StockDao.selectWithTodayZhenFu();
        String message = "";
+       mainUiServer.add( "用户获取了股票信息");
        try{
            while(resultSet.next()){
                message = message  + resultSet.getString(1)+ "/";
@@ -96,7 +97,7 @@ class ServerThread extends Thread {
                message = message  + resultSet.getString(6)+ "/";
                message = message  + resultSet.getString(9)+ "/";
            }
-           message = message +"#"+recommendStockRisk();
+           message = message +"#"+this.recommendStockRisk();
            return message;
        }catch(Exception e){
            e.printStackTrace();
@@ -104,7 +105,7 @@ class ServerThread extends Thread {
        return "F";
     }
 
-    public static String recommendStockHot(){
+    public static  String recommendStockHot(){
         ResultSet resultSet =  StockDao.selectWithTodayTurnOver();
         String message = "";
         try{
@@ -124,8 +125,9 @@ class ServerThread extends Thread {
         return "F";
     }
 
-    public static String recommendStockRisk(){
+    public  String recommendStockRisk(){
         ResultSet resultSet =  StockDao.selecttWithChengJiaoE();
+        mainUiServer.add( "用户获取了风险股票排行");
         String message = "";
         try{
             while(resultSet.next()){
@@ -145,59 +147,66 @@ class ServerThread extends Thread {
     }
 
 
-    public static String joinFamily(String[] information){
+    public  String joinFamily(String[] information){
         String email = information[1].trim();
         int id = Integer.valueOf(information[2].trim());
         UserInformationDao.createFamilyId(email,id);
+        mainUiServer.add( "用户加入了家庭"+String.valueOf(id));
         return "S";
     }
 
 
-    public static String deleteFamily(String[] information){
+    public  String deleteFamily(String[] information){
 
         int id = Integer.valueOf(information[1].trim());
         UserInformationDao.updateFamilyID(id);
+        mainUiServer.add( "解散家庭"+String.valueOf(id));
         return "S";
     }
 
 
-    public static String createFamily(String[] information){
+    public  String createFamily(String[] information){
         int number = (int)(Math.random()*1000000);
         String email = information[1].trim();
         UserInformationDao.createFamilyId(email,number);
         String ans ="I/"+String.valueOf(number);
+        mainUiServer.add( email + "创建家庭");
         return ans;
     }
 
 
-    public static String getFamilyInformation(String[] information) {
+    public  String getFamilyInformation(String[] information) {
         String email = information[1].trim();
+        mainUiServer.add( email + "获取家庭成员");
         return IncomeAndExpenseDao.getFamilyMember(UserInformationDao.getFamilyId(email),email);
     }
 
 
-    public static  String getWeek(String[] information){
+    public  String getWeek(String[] information){
         String email = information[1].trim();
+        mainUiServer.add("获取用户" + email + "一周的消费记录");
         return IncomeAndExpenseDao.getRecentWeek(email);
     }
 
 
 
-    public static String updatePassword(String[] information){
+    public  String updatePassword(String[] information){
         String email = information[1].trim();
         String password = information[2].trim();
         UserInformationDao.updatePassword(email,password);
+        mainUiServer.add("修改用户密码：" + email );
         return "S";
     }
 
-    public static String deleteUser(String[] information){
+    public  String deleteUser(String[] information){
         String email = information[1].trim();
         UserInformationDao.delete(email);
+        mainUiServer.add("删除用户：" + email );
         return "S";
     }
 
 
-    public static String sendIdentifyCode(String[] information){
+    public  String sendIdentifyCode(String[] information){
         String email = information[1].trim();
         int identifyCode = (int)(Math.random()*10000);
         try {
@@ -205,39 +214,46 @@ class ServerThread extends Thread {
             System.out.println("");
         } catch (MessagingException e) {
             e.printStackTrace();
+            mainUiServer.add("向" + email + "发送验证码失败");
             return "F";
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
+            mainUiServer.add("向" + email + "发送验证码失败");
             return "F";
         }
+        mainUiServer.add("向" + email + "发送验证码:"+String.valueOf(identifyCode));
         return "S/" + String.valueOf(identifyCode);
     }
 
-    public static String updateIncomeAndExpenseType(String[] information)
+    public  String updateIncomeAndExpenseType(String[] information)
     {
         IncomeAndExpense incomeAndExpense = new IncomeAndExpense(information[1].trim(),Integer.valueOf(information[3].trim()),information[2].trim(),information[4].trim());
         IncomeAndExpenseDao.updateType(incomeAndExpense);
+        mainUiServer.add(information[1].trim()+"修改了收支记录");
         return "S";
     }
 
-    public static String updateIncomeAndExpenseTime(String[] information)
+    public  String updateIncomeAndExpenseTime(String[] information)
     {
         IncomeAndExpense incomeAndExpense = new IncomeAndExpense(information[1].trim(),Integer.valueOf(information[3].trim()),information[2].trim(),information[4].trim());
         IncomeAndExpenseDao.updateTime(incomeAndExpense);
+        mainUiServer.add(information[1].trim()+"修改了收支记录");
         return "S";
     }
 
-    public static String updateIncomeAndExpenseMoney(String[] information)
+    public  String updateIncomeAndExpenseMoney(String[] information)
     {
         IncomeAndExpense incomeAndExpense = new IncomeAndExpense(information[1].trim(),Integer.valueOf(information[3].trim()),information[2].trim(),information[4].trim());
         IncomeAndExpenseDao.updateMoney(incomeAndExpense);
+        mainUiServer.add(information[1].trim()+"修改了收支记录");
         return "S";
     }
 
-    public static String deleteIncomeAndExpense(String[] information){
+    public  String deleteIncomeAndExpense(String[] information){
         //System.out.println("1111");
         IncomeAndExpense incomeAndExpense = new IncomeAndExpense(information[1].trim(),Integer.valueOf(information[3].trim()),information[2].trim(),information[4].trim());
         IncomeAndExpenseDao.deleteOne(incomeAndExpense);
+        mainUiServer.add(information[1].trim()+"删除了收支记录");
         return "S";
     }
 
@@ -285,7 +301,7 @@ class ServerThread extends Thread {
      * [information]
      * @return: java.lang.String
      **/
-    public static String registerInformation(String[] information){
+    public  String registerInformation(String[] information){
         String email = information[1];
         String password = information[2];
         String name = information[3];
@@ -293,6 +309,7 @@ class ServerThread extends Thread {
         try {
             while (rs.next()) {
                 if(email.equals(rs.getString(1))) {
+                    mainUiServer.add(email+"已存在，注册失败");
                     return "F";
                 }
                 //System.out.println(rs.getString(3));
@@ -302,10 +319,11 @@ class ServerThread extends Thread {
         }
         UserInformation newUser = new UserInformation(email,password,name,0);
         UserInformationDao.insert(newUser);
+        mainUiServer.add(email+"注册成功");
         return "B";
     }
 
-    public static String getIncomeAndExpense(String[] information){
+    public  String getIncomeAndExpense(String[] information){
         String email = information[1];
         String type = information[2];
         int money = Integer.parseInt(information[3]);
@@ -314,10 +332,11 @@ class ServerThread extends Thread {
         // time = new String(information[4],"utf-8");
         IncomeAndExpense incomeAndExpense = new IncomeAndExpense(email,money,type,time);
         IncomeAndExpenseDao.insert(incomeAndExpense);
+        mainUiServer.add(email+"新增了一条收支记录");
         return "C";
     }
 
-    public static String getRecentInccomeAndExpense(String[] information){
+    public  String getRecentInccomeAndExpense(String[] information){
         String email = information[1].trim();
         ResultSet rs = IncomeAndExpenseDao.selectWithEmailDesc(email);
         String sentMessage = "I";
@@ -337,10 +356,11 @@ class ServerThread extends Thread {
         }
         if(sentMessage.equals("I"))sentMessage = "Q";
         // System.out.println(sentMessage);
+        mainUiServer.add(email+"获取了收支记录");
         return sentMessage;
     }
 
-    public static String getFamilyId(String[] information){
+    public  String getFamilyId(String[] information){
         String email = information[1].trim();
         ResultSet rs = UserInformationDao.selectWithEmail(email);
         try{
@@ -351,7 +371,7 @@ class ServerThread extends Thread {
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        mainUiServer.add(email+"获取了家庭ID");
         return "0";
     }
 
